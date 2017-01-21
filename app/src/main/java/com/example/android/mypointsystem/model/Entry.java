@@ -3,6 +3,7 @@ package com.example.android.mypointsystem.model;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import com.example.android.mypointsystem.MainActivity;
 import com.example.android.mypointsystem.sample.StaticSampleData;
 
 import java.text.DateFormat;

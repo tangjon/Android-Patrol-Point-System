@@ -27,6 +27,11 @@ import com.example.android.mypointsystem.adapter.EntryListDataAdapter;
 import com.example.android.mypointsystem.model.Entry;
 import com.example.android.mypointsystem.utils.JSONHelper;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.Reader;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -105,6 +110,8 @@ public class MainActivity extends AppCompatActivity {
                 updateScreen();
             }
         });
+
+        buildGroupList();
 
         // FileImport
         fileImport();
@@ -229,9 +236,10 @@ public class MainActivity extends AppCompatActivity {
         }
 
         entryList.add(entry);
-        boolean result = JSONHelper.exportToJSON(this, entryList);
+        fileExport();
 
         updateScreen();
+
     }
 
 
@@ -286,6 +294,36 @@ public class MainActivity extends AppCompatActivity {
                 }
                 break;
         }
+    }
+    void parseText(String line){
+
+    }
+
+    void buildGroupList() {
+        String fileName = "troopList.txt";
+        InputStream in = null;
+        BufferedReader reader;
+        String line;
+
+        try {
+            in = this.getAssets().open(fileName);
+            reader = new BufferedReader(new InputStreamReader(in));
+            while((line = reader.readLine()) != null ){
+                parseText(line);
+            }
+
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                in.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+
+
     }
 
 }

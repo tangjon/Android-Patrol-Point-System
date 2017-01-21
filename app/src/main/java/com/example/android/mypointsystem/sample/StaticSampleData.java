@@ -1,5 +1,6 @@
 package com.example.android.mypointsystem.sample;
 
+import com.example.android.mypointsystem.MainActivity;
 import com.example.android.mypointsystem.model.PatrolProfile;
 
 import java.util.ArrayList;
@@ -23,7 +24,6 @@ public class StaticSampleData {
     static final String APL = "APL";
 
     static {
-
         samplePatrolList = new ArrayList<>();
 
         patrol1 = new PatrolProfile("Wolf");
