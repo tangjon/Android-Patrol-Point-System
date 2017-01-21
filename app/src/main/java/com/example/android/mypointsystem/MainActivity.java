@@ -202,7 +202,7 @@ public class MainActivity extends AppCompatActivity {
                     // Replace EntryList[i] with updated Entry
                     entryList.set(index, returnEntry);
                     updateScreen();
-                    fileExport();
+//                    fileExport();
                 }
             }
         }
@@ -234,17 +234,17 @@ public class MainActivity extends AppCompatActivity {
     public void addEntry(String string) {
         Entry entry;
         // STATIC
-//        if (string.length() == 0) {
-//            entry = new Entry();
-//        } else {
-//            entry = new Entry(string);
-//        }
-        // FROM FILE
         if (string.length() == 0) {
-            entry = new Entry(troopList);
+            entry = new Entry();
         } else {
-            entry = new Entry(string, troopList);
+            entry = new Entry(string);
         }
+        // FROM FILE
+//        if (string.length() == 0) {
+//            entry = new Entry(troopList);
+//        } else {
+//            entry = new Entry(string, troopList);
+//        }
 
         entryList.add(entry);
         fileExport();
