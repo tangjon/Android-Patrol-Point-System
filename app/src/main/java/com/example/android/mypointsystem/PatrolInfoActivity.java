@@ -20,16 +20,14 @@ import java.io.InputStream;
 
 public class PatrolInfoActivity extends AppCompatActivity {
 
+    // FOR RETURN ON ACTIVITY
+    final int REQUEST_CODE = 1;
     // ADAPTER THAT FORMATS PATROLPROFILE DATA
     MemberListDataAdapter adapter;
     // WHERE THE ADAPTER INFORMATION IS SHOWN TO USER
     RecyclerView recyclerView;
-
     // CONTAINS ENTIRE PATROL PROFILE
     PatrolProfile patrolProfile;
-
-    // FOR RETURN ON ACTIVITY
-    final int REQUEST_CODE = 1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -104,6 +102,14 @@ public class PatrolInfoActivity extends AppCompatActivity {
                 }
             }
         }
+    }
+    // ALLOWS BACK NAVIGATION TO PARENT ACTIVITY
+    @Override
+    public void onBackPressed() {
+        Intent returnIntent = new Intent();
+        returnIntent.putExtra("returnData", patrolProfile);
+        setResult(RESULT_OK, returnIntent);
+        finish();
     }
 
     // ALLOWS BACK NAVIGATION TO PARENT ACTIVITY

@@ -1,7 +1,6 @@
 package com.example.android.mypointsystem;
 
 import android.Manifest;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -32,7 +31,6 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.io.Reader;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -41,18 +39,15 @@ public class MainActivity extends AppCompatActivity {
     // Internal Storage Write File
     public static final String FILE_NAME = "lorem_ipsum.text";
     private static final int REQUEST_PERMISSION_WRITE = 1001;
-
+    private static final String TAG = "MainActivity";
     // Field for ActivityResult check
     final int REQUEST_CODE = 1;
-
-    private static final String TAG = "MainActivity";
+    // Field for List of Patrol Profiles
+    public List<Entry> entryList = new ArrayList<>();
     // Field for PatrolListData to be formatted
     EntryListDataAdapter adapter;
     // Field for Displaying above formatted data
     RecyclerView recyclerView;
-    // Field for List of Patrol Profiles
-    public List<Entry> entryList = new ArrayList<>();
-
     // TroopList
     List<PatrolProfile> troopList = new ArrayList<>();
 
@@ -191,6 +186,8 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+
+    // CALLED WHEN CHILD FINISHES
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == REQUEST_CODE) {
@@ -308,12 +305,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     boolean isNewPatrol(String line){
-        if (line.contains(":")){
-            return true;
-        }
-        else{
-            return false;
-        }
+        return line.contains(":");
     }
 
 

@@ -5,16 +5,11 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
 import android.view.MenuItem;
-import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.android.mypointsystem.adapter.EntryListDataAdapter;
-import com.example.android.mypointsystem.adapter.MemberListDataAdapter;
 import com.example.android.mypointsystem.adapter.PatrolListDataAdapter;
 import com.example.android.mypointsystem.model.Entry;
-import com.example.android.mypointsystem.model.MemberProfile;
 import com.example.android.mypointsystem.model.PatrolProfile;
-import com.example.android.mypointsystem.sample.StaticSampleData;
 
 import java.util.Collections;
 import java.util.Comparator;
@@ -128,5 +123,14 @@ public class PatrolListActivity extends AppCompatActivity {
             finish();
         }
         return true;
+    }
+
+    @Override
+    public void onBackPressed() {
+        entry.setPatrolList(patrolList);
+        Intent returnIntent = new Intent();
+        returnIntent.putExtra("returnData", entry);
+        setResult(RESULT_OK, returnIntent);
+        finish();
     }
 }
