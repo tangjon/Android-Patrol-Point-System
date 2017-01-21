@@ -202,7 +202,7 @@ public class MainActivity extends AppCompatActivity {
                     // Replace EntryList[i] with updated Entry
                     entryList.set(index, returnEntry);
                     updateScreen();
-//                    fileExport();
+                    fileExport();
                 }
             }
         }
