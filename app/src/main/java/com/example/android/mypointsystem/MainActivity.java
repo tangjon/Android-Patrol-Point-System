@@ -1,6 +1,7 @@
 package com.example.android.mypointsystem;
 
 import android.Manifest;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -105,14 +106,9 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        // Load Previously Saved Files
-//        entryList = JSONHelper.importFromJson(this);
-//        if (entryList == null){
-//            Toast.makeText(this, "LOADED FROM EMPTY", Toast.LENGTH_SHORT).show();
-//        }
-//        else{
-//            Toast.makeText(this, "LOADED", Toast.LENGTH_SHORT).show();
-//        }
+        // FileImport
+        fileImport();
+
 
         // CUSTOM ARRAY RECYCLERVIEWADAPTER WITH COURSE OBJECTS
         adapter = new EntryListDataAdapter(this, entryList);
@@ -144,24 +140,10 @@ public class MainActivity extends AppCompatActivity {
             case R.id.action_settings:
                 return true;
             case R.id.action_import:
-                List<Entry> entryItems = JSONHelper.importFromJson(this);
-                if (entryItems != null) {
-                    for (Entry entryItem : entryItems) {
-                        Log.i(TAG, "onOptionsItemsSelected: " + entryItem.getENTRY_NAME());
-                    }
-                    override(entryItems);
-                }
+                fileImport();
                 return true;
             case R.id.action_export:
-                boolean result = JSONHelper.exportToJSON(this, entryList);
-                if (result) {
-                    Toast.makeText(this, "DATA EXPORTED", Toast.LENGTH_SHORT).show();
-                    for (Entry entryItem : entryList) {
-                        Log.i(TAG, "onOptionsItemsSelected: " + entryItem.getENTRY_NAME());
-                    }
-                } else {
-                    Toast.makeText(this, "EXPORT FAILED", Toast.LENGTH_SHORT).show();
-                }
+                fileExport();
                 return true;
 
             case R.id.action_refresh:
@@ -176,6 +158,28 @@ public class MainActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
+    public void fileExport(){
+        boolean result = JSONHelper.exportToJSON(this, entryList);
+        if (result) {
+            Toast.makeText(this, "DATA EXPORTED", Toast.LENGTH_SHORT).show();
+            for (Entry entryItem : entryList) {
+                Log.i(TAG, "onOptionsItemsSelected: " + entryItem.getENTRY_NAME());
+            }
+        } else {
+            Toast.makeText(this, "EXPORT FAILED", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    public void fileImport(){
+        List<Entry> test = JSONHelper.importFromJson(getApplicationContext());
+        if (test != null) {
+            for (Entry entryItem : test) {
+                Log.i(TAG, "onOptionsItemsSelected: " + entryItem.getENTRY_NAME());
+            }
+            entryList = test;
+        }
+    }
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == REQUEST_CODE) {
@@ -187,18 +191,16 @@ public class MainActivity extends AppCompatActivity {
                     // Replace EntryList[i] with updated Entry
                     entryList.set(index, returnEntry);
                     updateScreen();
+                    fileExport();
                 }
             }
         }
     }
-//    public void override(){
-//        EntryListDataAdapter newAdapter = new EntryListDataAdapter(this, entryList2);
-//        recyclerView.setAdapter(newAdapter);
-//    }
 
     public void reset(){
         entryList.clear();
         override(entryList);
+        fileExport();
     }
     public void override(List<Entry> entryItems){
         entryList = entryItems;

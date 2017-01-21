@@ -17,6 +17,7 @@ public class StaticSampleData {
     public static PatrolProfile patrol2;
     public static PatrolProfile patrol3;
     public static PatrolProfile patrol4;
+    public static PatrolProfile patrol5;
 
     static final String PL = "PL";
     static final String APL = "APL";
@@ -29,6 +30,7 @@ public class StaticSampleData {
         patrol2 = new PatrolProfile("Panther");
         patrol3 = new PatrolProfile("Lion");
         patrol4 = new PatrolProfile("Tiger");
+        patrol5 = new PatrolProfile("NoName");
 
         // Patrol 1
         patrol1.addMember("Vivian", "Padilla", patrol1.getPATROL_NAME(), PL);
@@ -53,9 +55,16 @@ public class StaticSampleData {
         patrol4.addMember("Tricia", "Osborne",patrol4.getPATROL_NAME());
         patrol4.addMember("Mandy", "Cruz",patrol4.getPATROL_NAME());
 
+        // Patrol 5
+        patrol5.addMember("Freddie", "Mccormick",patrol4.getPATROL_NAME());
+        patrol5.addMember("Carl", "Gonzalez",patrol4.getPATROL_NAME());
+        patrol5.addMember("Tricia", "Osborne",patrol4.getPATROL_NAME());
+        patrol5.addMember("Mandy", "Cruz",patrol4.getPATROL_NAME());
+
         samplePatrolList.add(patrol1);
         samplePatrolList.add(patrol2);
         samplePatrolList.add(patrol3);
         samplePatrolList.add(patrol4);
+        samplePatrolList.add(patrol5);
     }
 }
