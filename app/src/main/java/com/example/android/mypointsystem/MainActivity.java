@@ -25,6 +25,7 @@ import android.widget.Toast;
 
 import com.example.android.mypointsystem.adapter.EntryListDataAdapter;
 import com.example.android.mypointsystem.model.Entry;
+import com.example.android.mypointsystem.model.PatrolProfile;
 import com.example.android.mypointsystem.utils.JSONHelper;
 
 import java.io.BufferedReader;
@@ -51,6 +52,9 @@ public class MainActivity extends AppCompatActivity {
     RecyclerView recyclerView;
     // Field for List of Patrol Profiles
     public List<Entry> entryList = new ArrayList<>();
+
+    // TroopList
+    List<PatrolProfile> troopList = new ArrayList<>();
 
     private boolean permissionGranted;
 
@@ -229,10 +233,17 @@ public class MainActivity extends AppCompatActivity {
 
     public void addEntry(String string) {
         Entry entry;
+        // STATIC
+//        if (string.length() == 0) {
+//            entry = new Entry();
+//        } else {
+//            entry = new Entry(string);
+//        }
+        // FROM FILE
         if (string.length() == 0) {
-            entry = new Entry();
+            entry = new Entry(troopList);
         } else {
-            entry = new Entry(string);
+            entry = new Entry(string, troopList);
         }
 
         entryList.add(entry);
@@ -295,21 +306,47 @@ public class MainActivity extends AppCompatActivity {
                 break;
         }
     }
-    void parseText(String line){
 
+    boolean isNewPatrol(String line){
+        if (line.contains(":")){
+            return true;
+        }
+        else{
+            return false;
+        }
     }
+
 
     void buildGroupList() {
         String fileName = "troopList.txt";
         InputStream in = null;
         BufferedReader reader;
         String line;
+        String patrolName = null;
 
+        PatrolProfile newPatrol = null;
+
+//        Log.i(TAG, "NEW MEMBER!: " + line);
+//         Log.i(TAG, "NEW PATROL!: " + patrolName);
         try {
             in = this.getAssets().open(fileName);
             reader = new BufferedReader(new InputStreamReader(in));
-            while((line = reader.readLine()) != null ){
-                parseText(line);
+            line = reader.readLine();
+
+            while(line != null ){
+                if(isNewPatrol(line)){
+                    patrolName = line.substring(0,line.length()-1);
+                    newPatrol = new PatrolProfile(patrolName);
+                    while((line = reader.readLine())!= null && !line.isEmpty()){
+                        Log.i(TAG, "NEW MEMBER!: " + line);
+                        newPatrol.addMember(line,".",patrolName);
+                    }
+                    troopList.add(newPatrol);
+                    Log.i(TAG, "NEW PATROL!: " + patrolName);
+                    line = reader.readLine();
+                }
+
+
             }
 
 

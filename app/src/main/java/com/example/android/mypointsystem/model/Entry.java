@@ -31,6 +31,15 @@ public class Entry implements Parcelable {
         this.patrolList = StaticSampleData.samplePatrolList;
     }
 
+    public Entry(String newEntry, List<PatrolProfile> newList){
+        this.itemId = UUID.randomUUID().toString();
+        DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd");
+        Date date = new Date();
+        this.DATE = dateFormat.format(date);
+        this.ENTRY_NAME = newEntry;
+        this.patrolList = newList;
+    }
+
     public Entry(){
         this.itemId = UUID.randomUUID().toString();
         DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd");
@@ -38,6 +47,15 @@ public class Entry implements Parcelable {
         this.DATE = dateFormat.format(date);
         this.ENTRY_NAME = this.DATE;
         this.patrolList = StaticSampleData.samplePatrolList;
+    }
+
+    public Entry(List<PatrolProfile> newList){
+        this.itemId = UUID.randomUUID().toString();
+        DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd");
+        Date date = new Date();
+        this.DATE = dateFormat.format(date);
+        this.ENTRY_NAME = this.DATE;
+        this.patrolList = newList;
     }
 
     public String getItemId() {

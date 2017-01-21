@@ -37,6 +37,12 @@ public class PatrolProfile implements Parcelable {
         memberProfileList.add(newMember);
     }
 
+    public void addMember(String fullName, String patrolName) {
+        MemberProfile newMember = new MemberProfile(parseFirst(fullName), parseLast(fullName), patrolName);
+        numberOfMembers++;
+        memberProfileList.add(newMember);
+    }
+
     public boolean removeMember(String fullName) {
         for (int i = 0; i < numberOfMembers; i++) {
             if (fullName.equals(memberProfileList.get(i).getFull_name())) {
@@ -129,5 +135,14 @@ public class PatrolProfile implements Parcelable {
             return new PatrolProfile[size];
         }
     };
+
+    private String parseFirst(String name){
+        int index = name.indexOf(" ");
+        return name.substring(0,index-1);
+    }
+    private String parseLast(String name){
+        int index = name.indexOf(" ");
+        return name.substring(index+1,name.length());
+    }
 }
 
